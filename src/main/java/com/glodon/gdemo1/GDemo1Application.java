@@ -15,9 +15,10 @@ public class GDemo1Application implements CommandLineRunner {
     @Autowired
     private Materials materials;
 
-    public static String destUrl;
+    private static String destUrl = "";
     public static String sourceUrl;
     public static String targetUrl;
+    public static String JsonUrl;
 
     public static void main(String[] args) throws ParseException {
         CommandLineParser parser = new GnuParser();
@@ -27,13 +28,24 @@ public class GDemo1Application implements CommandLineRunner {
             targetUrl = cmd.getOptionValue("t");
         }
         if (cmd.hasOption("d")){
-            destUrl = cmd.getOptionValue("d");
+            setDestUrl(cmd.getOptionValue("d"));
         }
         if (cmd.hasOption("s")){
             sourceUrl = cmd.getOptionValue("s");
         }
+        if (cmd.hasOption("j")){
+            JsonUrl = cmd.getOptionValue("j");
+        }
 
         SpringApplication.run(GDemo1Application.class, args);
+    }
+
+    public static void setDestUrl(String destUrl) {
+        GDemo1Application.destUrl = destUrl;
+    }
+
+    public static String getDestUrl() {
+        return destUrl;
     }
 
     @Override

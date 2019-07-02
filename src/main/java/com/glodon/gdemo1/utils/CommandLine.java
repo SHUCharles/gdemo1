@@ -11,6 +11,7 @@ public class CommandLine {
         OPTIONS = new Options()
                 .addOption("d", true, "destDir")
                 .addOption("s", true, "sourceDir")
-                .addOption("t", true, "target");
+                .addOption("t", true, "target")
+                .addOption("j", true, "JsonDir");
     }
 }

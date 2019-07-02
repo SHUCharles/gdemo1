@@ -19,12 +19,22 @@ import java.util.Map;
 public class Materials {
     @Autowired
     private SHA1 sha;
-    private static String destFileParentPath = GDemo1Application.destUrl;
+
+    @Autowired
+    private  FileService  fileService;
+
+    private static String destFileParentPath = GDemo1Application.getDestUrl();
     private static String sourceFileParentPath = GDemo1Application.sourceUrl;
     private static String targetPath = GDemo1Application.targetUrl;
+    private static String JsonCopyPath = GDemo1Application.JsonUrl;
+
+    public static String getJsonCopyPath() {
+        return JsonCopyPath;
+    }
 
     public void copyAndRename() throws IOException {
         File file = new File(targetPath);
+
         String content = FileUtils.readFileToString(file, "GB2312");
         JSONObject jobj = JSON.parseObject(content);
         JSONArray instances = jobj.getJSONArray("instances");
@@ -48,6 +58,8 @@ public class Materials {
                 }
             }
         }
-      FileUtils.writeStringToFile(new File("H:\\SystemMaterials.mlib"), jobj.toJSONString(), Charset.defaultCharset());
+         FileUtils.writeStringToFile(new File(JsonCopyPath), jobj.toJSONString(), Charset.defaultCharset());
+        fileService.TexturesUpload();
+        fileService.JsonUpload();
     }
 }
